@@ -34,8 +34,29 @@ uf_filtro = st.sidebar.selectbox("UF/Região - Gráfico 2 (Casos Anuais)", df.co
 df_filtered_uf = df[uf_filtro]
 
 # Filtro Região
-fig_regiao = px.bar(df_filtered_uf, title="Casos Anuais de Sarampo (Filtrados por UF/Região)")
+fig_regiao = px.bar(df_filtered_uf, title="Casos Anuais de Sarampo (Filtrados por UF/Região)", text="value")
 col2.plotly_chart(fig_regiao, use_container_width=True)
+
+# create three columns
+kpi1, kpi2, kpi3 = st.columns(3)
+
+# fill in those three columns with respective metrics or KPIs
+kpi1.metric(
+    label="Regiões que alcançaram a Meta % CV desde 2017📉",
+    value=0,
+)
+
+kpi2.metric(
+    label="Média % CV do Brasil em 2021 (vs 2022)📈",
+    value=74.94,
+    delta=round(80.70 - 74.94, 2)
+)
+
+kpi3.metric(
+    label="Casos anuais de Sarampo no Brasil em 2021 vs 2022)📉",
+    value=41,
+    delta=676 - 41 
+)
 
 
 # Gráfico 3 - CV
@@ -67,6 +88,7 @@ df_cv_filtered_ano = df_cv.loc[ano_cv_filtro]
 
 # Filtro Ano
 fig_cv_ano = px.bar(df_cv_filtered_ano[1:], title="CV (%) Anual D1 Tríplice Viral (Filtrada por Ano)", text="value")
+fig_cv_ano.add_hline(y=95, line_dash="dash", line_color="red", annotation_text="Meta OMS 95%", annotation_position="top left")
 col3.plotly_chart(fig_cv_ano, use_container_width=True)
 
 
@@ -78,4 +100,17 @@ df_cv_filtered_uf = df_cv[uf_cv_filtro]
 
 # Filtro UF/Região
 fig_regiao = px.bar(df_cv_filtered_uf, title="CV (%) Anual D1 Tríplice Viral (Filtrada por UF/Região)", text="value")
+fig_regiao.add_hline(y=95, line_dash="dash", line_color="red", annotation_text="Meta OMS 95%", annotation_position="top right")
 col4.plotly_chart(fig_regiao, use_container_width=True)
+
+
+
+
+# Visão detalhada dos Datasets
+# CV
+st.markdown("### Visão Detalhada do Dataset - % CV")
+st.dataframe(df_cv)
+
+# Casos Anuais
+st.markdown("### Visão Detalhada do Dataset - Casos Anuais de Sarampo")
+st.dataframe(df_casos)
