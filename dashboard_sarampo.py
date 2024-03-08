@@ -53,7 +53,7 @@ kpi2.metric(
 )
 
 kpi3.metric(
-    label="Casos anuais de Sarampo no Brasil em 2021 vs 2022)📉",
+    label="Casos anuais de Sarampo no Brasil em 2021 (vs 2022)📉",
     value=41,
     delta=676 - 41 
 )
